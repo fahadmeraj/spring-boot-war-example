@@ -6,6 +6,7 @@ pipeline{
     stages{
         stage("Test"){
             steps{
+                slackSend channel: 'mavenproject-jenkins', message: 'job started'
                 sh 'mvn test'
             }   
         }
@@ -35,9 +36,11 @@ pipeline{
         }
         success{
             echo "========pipeline executed successfully ========"
+            slackSend channel: 'mavenproject-jenkins', message: 'job succeeded'
         }
         failure{
             echo "========pipeline execution failed========"
+            slackSend channel: 'mavenproject-jenkins', message: 'job failed'
         }
     }
 }
